@@ -1,0 +1,7 @@
+# vim: ft=typoscript
+
+plugin.tx_fed.fce.akisysproxygal {
+  templateRootPath = EXT:akisysproxygal/Resources/Private/Elements/
+  partialRootPath  = EXT:akisysproxygal/Resources/Private/Partials/
+  layoutRootPath   = EXT:akisysproxygal/Resources/Private/Layouts/
+}
