@@ -1,14 +1,22 @@
 <!-- vim: ft=xml 
 -->
+<!--
+A Fluid ContentElement to build a proximity based grid image gallery.
+Copyright © 2013 Alexander Kuemmel. All Rights Reserved.
+-->
 {namespace v=Tx_Vhs_ViewHelpers}
 {namespace flux=Tx_Flux_ViewHelpers}
 <f:layout name="Content" />
 <div xmlns="http://www.w3.org/1999/xhtml" lang="en" xmlns:v="http://fedext.net/ns/vhs/ViewHelpers" xmlns:f="http://typo3.org/ns/fluid/ViewHelpers">
   <f:section name="Configuration">
-    <flux:flexform label="Akisys: Proximity Gallery" id="akisystabs" description="" icon="" wizardTab="Akisys">
+    <flux:flexform label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.label')}"
+      id="akisystabs"
+      description="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.description')}"
+      icon=""
+      wizardTab="Akisys">
       <flux:flexform.field.input
         name="thumbnail_dim"
-        label="Required: Thumbnail dimension size in px, each image will have equal height and width"
+        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.thumbnail_dim.label')}"
         default="150"
         eval="int,trim"
         required="true"
@@ -17,14 +25,20 @@
         <flux:flexform.field.wizard.slider name="dim_slider" step="10" width="300" hideParent="1"/>
       </flux:flexform.field.input>
       <flux:flexform.field.input
+        name="gallery_bg"
+        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.gallery_bg.label')}"
+        eval="trim">
+        <flux:flexform.field.wizard.link />
+      </flux:flexform.field.input>
+      <flux:flexform.field.input
         name="container_width"
-        label="Optional: Width of the overall Gallery container in pixel."
+        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.container_width.label')}"
         default=""
         eval="int,trim"
         minimum="100"/>
       <flux:flexform.field.input
         name="gridcolumns"
-        label="Optional: Number of Columns to use for the grid, rows adapt automatically"
+        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.gridcolumns.label')}"
         default=""
         eval="int,trim"
         minimum="1"
@@ -33,49 +47,94 @@
       </flux:flexform.field.input>
       <flux:flexform.field.checkbox
         name="thumbnail_forceMax"
-        label="Optional: Enforce maximum thumbnail dimension.\n Otherwise thumbnails will adapt to maximum content width without any grid columns restriction."
+        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.thumbnail_forceMax.label')}"
         default="0" />
       <flux:flexform.field.input
         name="lightbox_width"
-        label="Lightbox maximum width size in px"
+        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.lightbox_width.label')}"
         default="1024" />
       <flux:flexform.field.input
         name="lightbox_height"
-        label="Lightbox maximum height size in px"
-        default="800" />
-      <flux:flexform.sheet name="imagecollection" label="Image Collection">
-        <flux:flexform.section name="images" label="Images">
+        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.lightbox_height.label')}"
+        default="600" />
+      <flux:flexform.sheet
+        name="imagecollection"
+        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.imagecollection.label')}">
+        <flux:flexform.section
+          name="images"
+          label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.images.label')}">
           <f:render section="ImageObject" arguments="{_all}" />
         </flux:flexform.section>
       </flux:flexform.sheet>
     </flux:flexform>
   </f:section>
   <f:section name="ImageObject">
-    <flux:flexform.object name="image" label="Image">
-      <flux:flexform.field.checkbox name="disabled" label="Disable/hide this object" default="0" />
-      <flux:flexform.field.checkbox name="downloadable" label="Disable/Enable the download for this object" default="0" />
-      <flux:flexform.field.input name="file" label="File" eval="trim">
+    <flux:flexform.object
+      name="image"
+      label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.image.label')}">
+      <flux:flexform.field.checkbox
+        name="disabled"
+        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.image.disabled.label')}"
+        default="0" />
+      <flux:flexform.field.checkbox
+        name="downloadable"
+        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.image.downloadable.label')}"
+        default="0" />
+      <flux:flexform.field.input
+        name="file"
+        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.image.file.label')}"
+        eval="trim">
         <flux:flexform.field.wizard.link />
       </flux:flexform.field.input>
-      <flux:flexform.field.input name="img-alt" label="Alt text" />
-      <flux:flexform.field.input name="img-title" label="Title text" />
-      <flux:flexform.field.text name="img-desc" label="Description text" />
+      <flux:flexform.field.input
+        name="img-alt"
+        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.image.img-alt.label')}" />
+      <flux:flexform.field.input
+        name="img-title"
+        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.image.img-title.label')}" />
+      <flux:flexform.field.text
+        name="img-desc"
+        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.image.img-desc.label')}" />
     </flux:flexform.object>
   </f:section>
   <f:section name="Preview">
-    <flux:widget.grid />
   </f:section>
   <f:section name="Main">
     <v:asset.style name="jquery.colorbox.css" external="true" standalone="true" path="{f:uri.resource(extensionName:'Akisysproxigal', path:'css/colorbox/colorbox.css')}" />
     <v:asset.style name="akisysproxigal.master" dependencies="jquery.colorbox.css" path="{f:uri.resource(extensionName:'Akisysproxigal', path:'css/master.css')}" />
+    <f:if condition="{gallery_bg}">
+      <v:asset.style name="akisysproxigal.bg" dependencies="akisysproxigal.master">
+        .tx_akisysproxigal_container ul.img_thumbs {
+        background-image: url('{v:uri.image(src:"{gallery_bg}", width:"1024m",height:"1024m",relative:"0")}');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+        }
+      </v:asset.style>
+    </f:if>
     <v:asset.script name="jquery.proximity" path="{f:uri.resource(extensionName:'Akisysproxigal', path:'js/jquery.proximity.js')}" />
     <v:asset.script name="jquery.colorbox" path="{f:uri.resource(extensionName:'Akisysproxigal', path:'js/jquery.colorbox-min.js')}" />
     <v:asset.script name="akisysproxigal.gallerymain" dependencies="jquery.proximity, jquery.colorbox" path="{f:uri.resource(extensionName:'Akisysproxigal', path:'js/akisysproxigal.js')}" />
     <v:asset.script name="akisysproxigal.galleryinit" dependencies="akisysproxigal.gallerymain">
+      /*<![CDATA[*/
+      /*]]>*/
+      var cbxLang_current = "{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:main.colorbox.current')}",
+          cbxLang_previous= "{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:main.colorbox.previous')}",
+          cbxLang_next    = "{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:main.colorbox.next')}",
+          cbxLang_close   = "{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:main.colorbox.close')}",
+          cbxLang_imgError= "{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:main.colorbox.imgError')}",
+          gallery_target  = "#tx_akisysproxigal_container_{record.uid} ul.img_thumbs",
+          colorbox_target = "#tx_akisysproxigal_container_{record.uid} ul.img_thumbs li.img_item a.img_src";
+      /*<![CDATA[*/
       (function($){
-      $("#tx_akisysproxigal_container_{record.uid} ul.img_thumbs").proximityGallery();
-      $("#tx_akisysproxigal_container_{record.uid} ul.img_thumbs li.img_item a.img_src").colorbox({
+      $(gallery_target).proximityGallery();
+      $(colorbox_target).colorbox({
       rel:'lightbox-tx_proxigal_container_{record.uid}',
+      current: cbxLang_current,
+      previous: cbxLang_previous,
+      next: cbxLang_next,
+      close: cbxLang_close,
+      imgError: cbxLang_imgError,
       onComplete : function(){
         var anchor = $(this);
         $("#cboxLoadedContent img.cboxPhoto").attr('alt', $("img.img_thumb",anchor).attr('alt'));
@@ -94,6 +153,7 @@
       }
         });
       })(jQuery);
+      /*]]>*/
     </v:asset.script>
     <div id="tx_akisysproxigal_container_{record.uid}" class="tx_akisysproxigal_container">
       <ul class="img_thumbs" style="{f:if(condition:'{container_width}',then:'width:{container_width}px;')}">
@@ -135,5 +195,6 @@
         </f:for>
       </ul>
     </div>
+    <f:debug inline="true">{_all}</f:debug>
   </f:section>
 </div>

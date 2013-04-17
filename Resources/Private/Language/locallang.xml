@@ -1,11 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <T3locallang>
-	<meta type="array">
-		<type>module</type>
-		<description>Language labels for the Proximity Image Gallery extension in the FRONTEND</description>
-	</meta>
-	<data type="array">
-		<languageKey index="default" type="array">
-		</languageKey>
-	</data>
+  <meta type="array">
+    <type>module</type>
+    <description>Language labels for the Proximity Image Gallery extension in the FRONTEND</description>
+  </meta>
+  <data type="array">
+    <languageKey index="default" type="array">
+      <label index="config.label">Akisys: Proximity Image Gallery</label>
+      <label index="config.description">Creates a grid-based image gallery with proximity-based thumbnail hovers and an integrated lightbox.</label>
+      <label index="config.thumbnail_dim.label">Required: Thumbnail dimension size in px, each image will have equal height and width.</label>
+      <label index="config.gallery_bg.label">Optional: Choose an image file as gallery background.</label>
+      <label index="config.container_width.label">Optional: Width of the overall Gallery container in pixel.</label>
+      <label index="config.gridcolumns.label">Optional: Number of Columns to use for the grid, rows adapt automatically.</label>
+      <label index="config.thumbnail_forceMax.label">Optional: Enforce maximum thumbnail dimension.\n Otherwise thumbnails will adapt to maximum content width without any grid columns restriction.</label>
+      <label index="config.lightbox_width.label">Lightbox maximum width size in px.</label>
+      <label index="config.lightbox_height.label">Lightbox maximum height size in px.</label>
+      <label index="config.imagecollection.label">Image Collection</label>
+      <label index="config.images.label">Images</label>
+      <label index="config.image.label">Image</label>
+      <label index="config.image.disabled.label">Disable/hide this object</label>
+      <label index="config.image.downloadable.label">Disable/Enable the download for this object</label>
+      <label index="config.image.file.label">File</label>
+      <label index="config.image.img-alt.label">Alternative image text</label>
+      <label index="config.image.img-title.label">Image title text</label>
+      <label index="config.image.img-desc.label">Full image description text</label>
+      <label index="main.colorbox.current">Image {current} of {total}</label>
+      <label index="main.colorbox.previous">Previous</label>
+      <label index="main.colorbox.next">Next</label>
+      <label index="main.colorbox.close">Close</label>
+      <label index="main.colorbox.imgError">This image failed to load.</label>
+    </languageKey>
+  </data>
 </T3locallang>

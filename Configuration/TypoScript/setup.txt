@@ -1,4 +1,5 @@
 # vim: ft=typoscript
+# Copyright © 2013 Alexander Kuemmel. All Rights Reserved.
 [GLOBAL]
 plugin.tx_fed.fce.akisysproxigal {
   label = Proximity Image Gallery

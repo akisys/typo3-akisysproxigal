@@ -1,3 +1,8 @@
+/* This is an adaption of the original script under:
+ * http://tympanus.net/codrops/2012/01/04/thumbnail-proximity-effect/
+ *
+ * Copyright © 2013 Alexander Kuemmel. All Rights Reserved.
+ */
 (function($) {
   $.fn.proximityGallery = function(usersettings) {
     // list of thumbs

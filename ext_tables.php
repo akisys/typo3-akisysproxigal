@@ -3,4 +3,4 @@ if (!defined('TYPO3_MODE')) {
   die ('Access denied.');
 }
 
-t3lib_extMgm::addStaticFile($_EXTKEY,'Configuration/TypoScript','Akisys Proximity Gallery');
+t3lib_extMgm::addStaticFile($_EXTKEY,'Configuration/TypoScript','Akisys Proximity Image Gallery');
