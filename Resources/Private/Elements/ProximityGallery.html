@@ -1,0 +1,139 @@
+<!-- vim: ft=xml 
+-->
+{namespace v=Tx_Vhs_ViewHelpers}
+{namespace flux=Tx_Flux_ViewHelpers}
+<f:layout name="Content" />
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en" xmlns:v="http://fedext.net/ns/vhs/ViewHelpers" xmlns:f="http://typo3.org/ns/fluid/ViewHelpers">
+  <f:section name="Configuration">
+    <flux:flexform label="Akisys: Proximity Gallery" id="akisystabs" description="" icon="" wizardTab="Akisys">
+      <flux:flexform.field.input
+        name="thumbnail_dim"
+        label="Required: Thumbnail dimension size in px, each image will have equal height and width"
+        default="150"
+        eval="int,trim"
+        required="true"
+        minimum="10"
+        maximum="300">
+        <flux:flexform.field.wizard.slider name="dim_slider" step="10" width="300" hideParent="1"/>
+      </flux:flexform.field.input>
+      <flux:flexform.field.input
+        name="container_width"
+        label="Optional: Width of the overall Gallery container in pixel."
+        default=""
+        eval="int,trim"
+        minimum="100"/>
+      <flux:flexform.field.input
+        name="gridcolumns"
+        label="Optional: Number of Columns to use for the grid, rows adapt automatically"
+        default=""
+        eval="int,trim"
+        minimum="1"
+        maximum="20">
+        <flux:flexform.field.wizard.slider name="gridcol_slider" step="1" width="300" hideParent="1"/>
+      </flux:flexform.field.input>
+      <flux:flexform.field.checkbox
+        name="thumbnail_forceMax"
+        label="Optional: Enforce maximum thumbnail dimension.\n Otherwise thumbnails will adapt to maximum content width without any grid columns restriction."
+        default="0" />
+      <flux:flexform.field.input
+        name="lightbox_width"
+        label="Lightbox maximum width size in px"
+        default="1024" />
+      <flux:flexform.field.input
+        name="lightbox_height"
+        label="Lightbox maximum height size in px"
+        default="800" />
+      <flux:flexform.sheet name="imagecollection" label="Image Collection">
+        <flux:flexform.section name="images" label="Images">
+          <f:render section="ImageObject" arguments="{_all}" />
+        </flux:flexform.section>
+      </flux:flexform.sheet>
+    </flux:flexform>
+  </f:section>
+  <f:section name="ImageObject">
+    <flux:flexform.object name="image" label="Image">
+      <flux:flexform.field.checkbox name="disabled" label="Disable/hide this object" default="0" />
+      <flux:flexform.field.checkbox name="downloadable" label="Disable/Enable the download for this object" default="0" />
+      <flux:flexform.field.input name="file" label="File" eval="trim">
+        <flux:flexform.field.wizard.link />
+      </flux:flexform.field.input>
+      <flux:flexform.field.input name="img-alt" label="Alt text" />
+      <flux:flexform.field.input name="img-title" label="Title text" />
+      <flux:flexform.field.text name="img-desc" label="Description text" />
+    </flux:flexform.object>
+  </f:section>
+  <f:section name="Preview">
+    <flux:widget.grid />
+  </f:section>
+  <f:section name="Main">
+    <v:asset.style name="jquery.colorbox.css" external="true" standalone="true" path="{f:uri.resource(extensionName:'Akisysproxigal', path:'css/colorbox/colorbox.css')}" />
+    <v:asset.style name="akisysproxigal.master" dependencies="jquery.colorbox.css" path="{f:uri.resource(extensionName:'Akisysproxigal', path:'css/master.css')}" />
+    <v:asset.script name="jquery.proximity" path="{f:uri.resource(extensionName:'Akisysproxigal', path:'js/jquery.proximity.js')}" />
+    <v:asset.script name="jquery.colorbox" path="{f:uri.resource(extensionName:'Akisysproxigal', path:'js/jquery.colorbox-min.js')}" />
+    <v:asset.script name="akisysproxigal.gallerymain" dependencies="jquery.proximity, jquery.colorbox" path="{f:uri.resource(extensionName:'Akisysproxigal', path:'js/akisysproxigal.js')}" />
+    <v:asset.script name="akisysproxigal.galleryinit" dependencies="akisysproxigal.gallerymain">
+      (function($){
+      $("#tx_akisysproxigal_container_{record.uid} ul.img_thumbs").proximityGallery();
+      $("#tx_akisysproxigal_container_{record.uid} ul.img_thumbs li.img_item a.img_src").colorbox({
+      rel:'lightbox-tx_proxigal_container_{record.uid}',
+      onComplete : function(){
+        var anchor = $(this);
+        $("#cboxLoadedContent img.cboxPhoto").attr('alt', $("img.img_thumb",anchor).attr('alt'));
+        var src_desc = anchor.data('description');
+        var src_file = anchor.data('imgsrc');
+        if(src_desc.length > 1 || src_file.length > 1){
+          var cboxAdditions = $('<div id="cboxAdditions"></div>'); cboxAdditions.appendTo("#cboxLoadedContent");
+          var desc_canvas = $('<div class="description"></div>'); desc_canvas.appendTo(cboxAdditions);
+          desc_canvas.text(src_desc);
+          if(src_file.length > 0){
+            var dl_canvas = $('<div class="download"></div>'); dl_canvas.appendTo(cboxAdditions);
+            var dl_link = $('<a href="'+src_file+'" target="_blank"></a>'); dl_link.appendTo(dl_canvas);
+            dl_link.text("Download the original image");
+          }
+        }
+      }
+        });
+      })(jQuery);
+    </v:asset.script>
+    <div id="tx_akisysproxigal_container_{record.uid}" class="tx_akisysproxigal_container">
+      <ul class="img_thumbs" style="{f:if(condition:'{container_width}',then:'width:{container_width}px;')}">
+        <f:for each="{images}" as="itemObjects" iteration="iteration">
+          <f:for each="{itemObjects}" as="imageObject">
+            <f:if condition="{imageObject.disabled} < 1">
+              <f:if condition="{thumbnail_forceMax}">
+                <v:var.set name="thumb_style" value="max-width:{thumbnail_dim}px;max-height:{thumbnail_dim}px;"/>
+              </f:if>
+              <f:if condition="{gridcolumns}">
+                <f:if condition="{container_width}">
+                  <f:then>
+                    <v:var.set name="thumbnail_dim" value="{v:math.division(a:'{container_width}',b:'{gridcolumns}')}"/>
+                    <v:var.set name="thumb_style" value="max-width:{thumbnail_dim}px;max-height:{thumbnail_dim}px;" />
+                  </f:then>
+                  <f:else>
+                    <v:var.set name="thumbnail_dim" value="150" />
+                    <v:var.set name="li_style" value="width:{v:math.division(a:'100',b:'{gridcolumns}')}%; height:auto;" />
+                  </f:else>
+                </f:if>
+              </f:if>
+              <li class="img_item" style="{li_style}">
+                <a href="{f:uri.image(src:'{imageObject.file}',width:'{lightbox_width}m',height:'{lightbox_height}m')}" 
+                  rel="lightbox-tx_proxigal_container_{record.uid}"
+                  class="img_src" 
+                  title='{imageObject.img-title}'
+                  data-description='{imageObject.img-desc}'
+                  data-imgsrc="{f:if(condition:'{imageObject.downloadable}', then:'{imageObject.file}')}"
+                  >
+                  <img src="{f:uri.image(src:'{imageObject.file}',width:'{thumbnail_dim}c',height:'{thumbnail_dim}c')}"
+                    alt="{imageObject.img-alt}"
+                    class="img_thumb"
+                    style="{thumb_style}"
+                    />
+                </a>
+              </li>
+            </f:if>
+          </f:for>
+        </f:for>
+      </ul>
+    </div>
+  </f:section>
+</div>
