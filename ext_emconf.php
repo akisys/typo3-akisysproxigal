@@ -32,8 +32,11 @@ $EM_CONF[$_EXTKEY] = array(
 	'version' => '0.1.0',
 	'constraints' => array(
 		'depends' => array(
+      'typo3' => '4.7.7-0.0.0',
+      'cms' => '4.7.7-0.0.0',
 			'fluidcontent' => '2.2.2-0.0.0',
 			't3jquery' => '',
+      'vhs' => '',
 		),
 		'conflicts' => array(
 		),
