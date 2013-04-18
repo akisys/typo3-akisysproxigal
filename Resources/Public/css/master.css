@@ -1,8 +1,6 @@
 @charset "UTF-8";
 /* This is an adaption of the original script found under:
  * http://tympanus.net/codrops/2012/01/04/thumbnail-proximity-effect/
- *
- * Copyright © 2013 Alexander Kuemmel. All Rights Reserved.
  */
 
 .tx_akisysproxigal_container ul.img_thumbs {
@@ -39,18 +37,10 @@
   width: 100%;
   opacity: 0.2;
 }
-.tx_akisysproxigal_container ul.img_thumbs li a div.img_description{
-  width: 200px;
-  height: 100px;
-  background: rgba(0,0,0,0.8);
-  position: absolute;
-  top: 0px;
-  left: -200px;
-  color: white;
+.tx_akisysproxigal_container ul.img_thumbs li a div.img_desc{
   display: none;
-  z-index: 1001;
 }
-#cboxAdditions {
+.cboxAdditions {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
   bottom: 0;
   display: inline-block;
@@ -58,12 +48,18 @@
   padding: 1%;
   position: absolute;
   width: 98%;
+  color: white;
 }
-#cboxAdditions * {
-  color: lightgray;
+.cboxPhotoDescription, .cboxPhotoDownload {
+  font-size: 85%;
+  line-height: 1.2em;
 }
-#cboxAdditions .description {
-}
-#cboxAdditions .download {
+.cboxPhotoDownload {
   padding: 0.1em 0;
+}
+.cboxPhotoDownload a {
+  color: lightblue;
+}
+.cboxPhotoDownload a:hover {
+  color: blue;
 }

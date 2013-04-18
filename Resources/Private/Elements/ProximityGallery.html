@@ -94,7 +94,9 @@ Copyright © 2013 Alexander Kuemmel. All Rights Reserved.
         label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.image.img-title.label')}" />
       <flux:flexform.field.text
         name="img-desc"
-        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.image.img-desc.label')}" />
+        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.image.img-desc.label')}"
+        rows="6"
+        enableRichText="true"/>
     </flux:flexform.object>
   </f:section>
   <f:section name="Preview">
@@ -138,14 +140,14 @@ Copyright © 2013 Alexander Kuemmel. All Rights Reserved.
       onComplete : function(){
         var anchor = $(this);
         $("#cboxLoadedContent img.cboxPhoto").attr('alt', $("img.img_thumb",anchor).attr('alt'));
-        var src_desc = anchor.data('description');
+        var src_desc = $("div.img_desc",anchor);
         var src_file = anchor.data('imgsrc');
         if(src_desc.length > 1 || src_file.length > 1){
-          var cboxAdditions = $('<div id="cboxAdditions"></div>'); cboxAdditions.appendTo("#cboxLoadedContent");
-          var desc_canvas = $('<div class="description"></div>'); desc_canvas.appendTo(cboxAdditions);
-          desc_canvas.text(src_desc);
+          var cboxAdditions = $('<div id="cboxPhotoAdditions" class="cboxAdditions"></div>'); cboxAdditions.appendTo("#cboxLoadedContent");
+          var desc_canvas = $('<div class="cboxPhotoDescription"></div>'); desc_canvas.appendTo(cboxAdditions);
+          desc_canvas.html(src_desc.html());
           if(src_file.length > 0){
-            var dl_canvas = $('<div class="download"></div>'); dl_canvas.appendTo(cboxAdditions);
+            var dl_canvas = $('<div class="cboxPhotoDownload"></div>'); dl_canvas.appendTo(cboxAdditions);
             var dl_link = $('<a href="'+src_file+'" target="_blank"></a>'); dl_link.appendTo(dl_canvas);
             dl_link.text("Download the original image");
           }
@@ -180,9 +182,11 @@ Copyright © 2013 Alexander Kuemmel. All Rights Reserved.
                   rel="lightbox-tx_proxigal_container_{record.uid}"
                   class="img_src" 
                   title='{imageObject.img-title}'
-                  data-description='{imageObject.img-desc}'
                   data-imgsrc="{f:if(condition:'{imageObject.downloadable}', then:'{imageObject.file}')}"
                   >
+                  <div class="img_desc">
+                    <f:format.html>{imageObject.img-desc}</f:format.html>
+                  </div>
                   <img src="{f:uri.image(src:'{imageObject.file}',width:'{thumbnail_dim}c',height:'{thumbnail_dim}c')}"
                     alt="{imageObject.img-alt}"
                     class="img_thumb"
@@ -195,6 +199,5 @@ Copyright © 2013 Alexander Kuemmel. All Rights Reserved.
         </f:for>
       </ul>
     </div>
-    <f:debug inline="true">{_all}</f:debug>
   </f:section>
 </div>
