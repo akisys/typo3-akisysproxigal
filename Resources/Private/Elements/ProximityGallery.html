@@ -31,6 +31,15 @@ Copyright © 2013 Alexander Kuemmel. All Rights Reserved.
         <flux:flexform.field.wizard.link />
       </flux:flexform.field.input>
       <flux:flexform.field.input
+        name="thumb_css_opacity"
+        label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.thumb_css_opacity.label')}"
+        default="20"
+        minimum="0"
+        maximum="100"
+        eval="int,trim">
+        <flux:flexform.field.wizard.slider step="5" width="300" hideParent="1"/>
+      </flux:flexform.field.input>
+      <flux:flexform.field.input
         name="container_width"
         label="{f:translate(key:'LLL:EXT:akisysproxigal/Resources/Private/Language/locallang.xml:config.container_width.label')}"
         default=""
@@ -104,16 +113,19 @@ Copyright © 2013 Alexander Kuemmel. All Rights Reserved.
   <f:section name="Main">
     <v:asset.style name="jquery.colorbox.css" external="true" standalone="true" path="{f:uri.resource(extensionName:'Akisysproxigal', path:'css/colorbox/colorbox.css')}" />
     <v:asset.style name="akisysproxigal.master" dependencies="jquery.colorbox.css" path="{f:uri.resource(extensionName:'Akisysproxigal', path:'css/master.css')}" />
-    <f:if condition="{gallery_bg}">
-      <v:asset.style name="akisysproxigal.bg" dependencies="akisysproxigal.master">
+    <v:asset.style name="akisysproxigal.user" dependencies="akisysproxigal.master">
+      <f:if condition="{gallery_bg}">
         .tx_akisysproxigal_container ul.img_thumbs {
         background-image: url('{v:uri.image(src:"{gallery_bg}", width:"1024m",height:"1024m",relative:"0")}');
           background-repeat: no-repeat;
           background-position: center;
           background-size: cover;
         }
-      </v:asset.style>
-    </f:if>
+      </f:if>
+        .tx_akisysproxigal_container ul.img_thumbs li a img{
+        opacity: {v:math.division(a:'{thumb_css_opacity}',b:'100')};
+        }
+    </v:asset.style>
     <v:asset.script name="jquery.proximity" path="{f:uri.resource(extensionName:'Akisysproxigal', path:'js/jquery.proximity.js')}" />
     <v:asset.script name="jquery.colorbox" path="{f:uri.resource(extensionName:'Akisysproxigal', path:'js/jquery.colorbox-min.js')}" />
     <v:asset.script name="akisysproxigal.gallerymain" dependencies="jquery.proximity, jquery.colorbox" path="{f:uri.resource(extensionName:'Akisysproxigal', path:'js/akisysproxigal.js')}" />
@@ -142,7 +154,7 @@ Copyright © 2013 Alexander Kuemmel. All Rights Reserved.
         $("#cboxLoadedContent img.cboxPhoto").attr('alt', $("img.img_thumb",anchor).attr('alt'));
         var src_desc = $("div.img_desc",anchor);
         var src_file = anchor.data('imgsrc');
-        if(src_desc.length > 1 || src_file.length > 1){
+        if(src_desc.length > 0 || src_file.length > 0){
           var cboxAdditions = $('<div id="cboxPhotoAdditions" class="cboxAdditions"></div>'); cboxAdditions.appendTo("#cboxLoadedContent");
           var desc_canvas = $('<div class="cboxPhotoDescription"></div>'); desc_canvas.appendTo(cboxAdditions);
           desc_canvas.html(src_desc.html());
