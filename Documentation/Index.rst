@@ -46,7 +46,7 @@ the source image file.
 
 See the gallery in action.
 
-.. figure:: Images/Frontend-GalleryView.png
+.. figure:: Images/Frontend-GalleryView.jpg
 		:width: 800px
 		:alt: Frontend Gallery View
 
@@ -54,7 +54,7 @@ See the gallery in action.
 
 
 
-.. figure:: Images/Frontend-GalleryHover.png
+.. figure:: Images/Frontend-GalleryHover.jpg
 		:width: 800px
 		:alt: Frontend Gallery Hover
 
@@ -63,7 +63,7 @@ See the gallery in action.
 
 
 
-.. figure:: Images/Frontend-Lightbox.png
+.. figure:: Images/Frontend-Lightbox.jpg
 		:width: 800px
 		:alt: Frontend Gallery Single Lightbox View
 
