@@ -13,8 +13,9 @@
       <label index="config.container_width.label">Optional: Width of the overall Gallery container in pixel.</label>
       <label index="config.gridcolumns.label">Optional: Number of Columns to use for the grid, rows adapt automatically.</label>
       <label index="config.thumbnail_forceMax.label">Optional: Enforce maximum thumbnail dimension.\n Otherwise thumbnails will adapt to maximum content width without any grid columns restriction.</label>
-      <label index="config.lightbox_width.label">Lightbox maximum width size in px.</label>
-      <label index="config.lightbox_height.label">Lightbox maximum height size in px.</label>
+      <label index="config.lightbox_width.label">Optional: Lightbox maximum width size in px.</label>
+      <label index="config.lightbox_height.label">Optional: Lightbox maximum height size in px.</label>
+      <label index="config.thumb_css_opacity.label">Optional: Change the opacity of the thumbnails grid.</label>
       <label index="config.imagecollection.label">Image Collection</label>
       <label index="config.images.label">Images</label>
       <label index="config.image.label">Image</label>
